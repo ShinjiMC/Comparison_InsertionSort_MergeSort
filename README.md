@@ -1,4 +1,15 @@
+Credits by @ShinjiMC
 # Sorting Algorithms: Insertion Sort vs. Merge Sort [ENG]
+
+## Execute the project
+The project was created using the following tools and versions:
+
+- For C++ development (GCC), the version used was 13.2.0 (built by the MSYS2 project).
+- For Go, version go1.21.0 designed for Windows on the amd64 architecture was employed.
+
+To generate graphs, the "gonum/plot" library was used.
+
+To run the project, simply use the executable file "main.exe."
 
 ## Introduction
 
@@ -66,6 +77,16 @@ Merge Sort is a divide-and-conquer sorting algorithm. It divides the input array
 ---
 
 # Algoritmos de Ordenamiento: Insertion Sort vs. Merge Sort [ESP]
+
+## Ejecutar el proyecto
+El proyecto fue creado con las siguientes herramientas y versiones:
+
+- Para el desarrollo en C++ (GCC), se utilizó la versión 13.2.0 (construida por el proyecto MSYS2).
+- En cuanto a Go, se empleó la versión go1.21.0 específicamente diseñada para Windows en arquitectura amd64.
+
+Para la generación de gráficos, se hizo uso de la biblioteca "gonum/plot".
+
+Para ejecutar el proyecto, simplemente utiliza el archivo ejecutable "main.exe".
 
 ## Introducción
 
