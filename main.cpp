@@ -119,14 +119,22 @@ int main(){
         std::cerr << "Error al abrir el archivo para escritura." << std::endl;
         return 0;
     }
-    for(int i = 0; i < 2000; ++i){
+    for(int i = 0; i < 600; ++i){
         std::vector<double> points = GetPoints(i);
         outputFile1 << InsertionSort(points) << " ";
         outputFile2 << getTimerge(points) << " ";
     }
     outputFile1.close();
     outputFile2.close();
-    std::cout << "Fin ." << std::endl;
+    int result = std::system(".\\Lineal\\Lineal.exe");
+    if (result != 0) {
+        std::cerr << "Error al ejecutar el Ploteo en GO." << std::endl;
+    }
+    std::remove(".\\Lineal\\distances");
+    int results = std::system(".\\Lineal.png");
+    if (results != 0) {
+        std::cerr << "Error al abrir la imagen." << std::endl;
+    }
     return 0;
 }
 
