@@ -53,10 +53,20 @@ func readFromFile(filename string) ([]byte, error) {
 
 func Ploteo(insertion, merge []float64, dim int) {
 	p := plot.New()
-	p.Title.Text = "InsertionSort vs MergeSort"
+	p.Title.Text = fmt.Sprintf("InsertionSort vs MergeSort with %d data points", dim)
 	p.X.Label.Text = "Size of Data"
 	p.Y.Label.Text = "Delay Time"
 	p.Y.Tick.Marker = commaTicks{}
+	tickInterval := float64(dim) / float64(dim-1)
+
+	ticks := make([]plot.Tick, dim)
+	for i := 0; i < dim; i++ {
+		tickValue := float64(i) * tickInterval
+		tickLabel := strconv.Itoa(int(tickValue))
+		ticks[i] = plot.Tick{Value: tickValue, Label: tickLabel}
+	}
+	p.X.Min = 0
+	p.X.Max = float64(dim)
 	ptsInsertion := make(plotter.XYs, len(insertion))
 	ptsMerge := make(plotter.XYs, len(merge))
 	for i := 0; i < len(insertion); i++ {
@@ -89,7 +99,7 @@ func Ploteo(insertion, merge []float64, dim int) {
 	if err := p.Save(6*vg.Inch, 4*vg.Inch, "Lineal.png"); err != nil {
 		panic(err)
 	}
-	fmt.Println("Grafico Lineal guardado en 'Lineal.png'")
+	fmt.Println("Line chart saved as 'Lineal.png'")
 }
 
 func SplitLogLine(text string) []float64 {
@@ -102,7 +112,7 @@ func SplitLogLine(text string) []float64 {
 		if part != "" {
 			number, err := strconv.ParseFloat(part, 64)
 			if err != nil {
-				fmt.Printf("Error al analizar número '%s': %v\n", part, err)
+				fmt.Printf("Error parsing number '%s': %v\n", part, err)
 			} else {
 				numbers = append(numbers, number)
 			}
@@ -123,5 +133,5 @@ func main() {
 	//fmt.Println("Received:", string(data))
 	insertion := SplitLogLine(string(data1))
 	merge := SplitLogLine(string(data2))
-	Ploteo(insertion, merge, len(insertion))
+	Ploteo(insertion, merge, len(insertion)-1)
 }

@@ -98,42 +98,56 @@ double getTimerge(const std::vector<double>& point){
     return duration.count();
 }
 
-int main(){
-    /*int d = ChooseD();
-    if ( d!=0 ) {
-        std::vector<double> distances = GetDistances(GetPoints(d));
-        LoadFile(distances,d);
-        int result = std::system(".\\Histogram\\Histogram.exe");
-        if (result != 0) {
-            std::cerr << "Error al ejecutar el Ploteo en GO." << std::endl;
-        }
-        std::remove(".\\Histogram\\distances");
-        int results = std::system(".\\histogram.png");
-        if (results != 0) {
-            std::cerr << "Error al abrir la imagen." << std::endl;
-        }
-    }*/
+void LoadFile(const int& n){
     std::ofstream outputFile1("Lineal/Insertion",std::ios::trunc);
     std::ofstream outputFile2("Lineal/Merge",std::ios::trunc);
     if (!outputFile1.is_open() || !outputFile2.is_open()) {
-        std::cerr << "Error al abrir el archivo para escritura." << std::endl;
-        return 0;
+        std::cerr << "Error opening the file for writing." << std::endl;
+        return;
     }
-    for(int i = 0; i < 600; ++i){
+    for(int i = 0; i < n; ++i){
+        if (i==0){
+            outputFile1 << "0 ";
+            outputFile2 << "0 ";
+        }
         std::vector<double> points = GetPoints(i);
         outputFile1 << InsertionSort(points) << " ";
         outputFile2 << getTimerge(points) << " ";
     }
     outputFile1.close();
     outputFile2.close();
+}
+
+int InsertInt() {
+    int num;
+    while (true) {
+        std::cout << "Enter an integer of data points (between 10 and 2500): ";
+        if (std::cin >> num) {
+            if (num >= 10 && num <= 2500) {
+                return num; // El número está en el rango deseado
+            } else {
+                std::cout << "Number out of range. Please try again." << std::endl;
+            }
+        } else {
+            std::cout << "Number out of range. Please try again." << std::endl;
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    }
+}
+int 
+main(){
+    int n = InsertInt();
+    LoadFile(n);
     int result = std::system(".\\Lineal\\Lineal.exe");
     if (result != 0) {
-        std::cerr << "Error al ejecutar el Ploteo en GO." << std::endl;
+        std::cerr << "Error executing the plotting in GO." << std::endl;
     }
-    std::remove(".\\Lineal\\distances");
+    std::remove(".\\Lineal\\Insertion");
+    std::remove(".\\Lineal\\Merge");
     int results = std::system(".\\Lineal.png");
     if (results != 0) {
-        std::cerr << "Error al abrir la imagen." << std::endl;
+        std::cerr << "Error opening the image." << std::endl;
     }
     return 0;
 }
